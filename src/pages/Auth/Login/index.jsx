@@ -1,49 +1,78 @@
    import React, { useState } from 'react';
+   import { useNavigate } from "react-router-dom";
+    import { URLS } from "../../../constants/constants";
+    import '../styles.css'; // Import your CSS file
 
    const Login = () => {
+    const navigate = useNavigate();
        const [email, setEmail] = useState('');
        const [password, setPassword] = useState('');
 
-       const handleSubmit = (e) => {
-           e.preventDefault();
-           console.log('Email:', email);
-           console.log('Password:', password);
-           // Add authentication logic here
+       const handleSubmit = async (e) => {
+         e.preventDefault();
+
+         try {
+           const response = await axios.post(
+             `${API_URL}user/login`,
+             {
+               email,
+               password,
+             },
+             {
+               headers: {
+                 "Content-Type": "application/json",
+                 Authorization: "",
+               },
+             }
+           );
+           localStorage.setItem("token", response.data.token);
+           navigate(URLS.DASHBOARD);
+         } catch (error) {
+           console.error("Error in Login:", error);
+           throw error;
+         }
        };
 
+       const NavigateToRegister = () =>{
+        navigate(URLS.REGISTER);
+       }
+
        return (
-           <div className="flex items-center justify-center min-h-screen bg-gray-100">
-               <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-                   <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+           <div className="form-container">
+               <div className="form-card">
+                   <h2 className="form-title">Login</h2>
                    <form onSubmit={handleSubmit}>
-                       <div className="mb-4">
-                           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                       <div className="form-group">
+                           <label htmlFor="email" className="form-label">Email</label>
                            <input
                                type="email"
                                id="email"
                                value={email}
                                onChange={(e) => setEmail(e.target.value)}
                                required
-                               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                               className="form-input"
                            />
                        </div>
-                       <div className="mb-6">
-                           <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                       <div className="form-group mb-6">
+                           <label htmlFor="password" className="form-label">Password</label>
                            <input
                                type="password"
                                id="password"
                                value={password}
                                onChange={(e) => setPassword(e.target.value)}
                                required
-                               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                               className="form-input"
                            />
                        </div>
                        <button
                            type="submit"
-                           className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                           className="form-button"
                        >
                            Login
                        </button>
+                       <div>
+                        <p>Don't have account? <span className='anchor' role='button' onClick={NavigateToRegister}>Click here</span> to Register</p>
+                       </div>
                    </form>
                </div>
            </div>

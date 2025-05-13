@@ -1,0 +1,88 @@
+/* Container Styles */
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Card Styles */
+.form-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  max-width: 460px;
+  width: 320px;
+  text-align: center;
+}
+
+/* Title Styles */
+.form-title {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Form Group Styles */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+/* Label Styles */
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.25rem;
+  text-align: left;
+}
+
+/* Input Styles */
+.form-input {
+  width: 92%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+.form-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+/* Button Styles */
+.form-button {
+  width: 48%;
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.mr-12 {
+    margin-right: 12px;
+}
+
+.form-button:hover {
+  background-color: #2563eb;
+}
+
+.form-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+/* Margin Utilities */
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+.anchor {
+    cursor: pointer;
+    color: cornflowerblue;
+}
