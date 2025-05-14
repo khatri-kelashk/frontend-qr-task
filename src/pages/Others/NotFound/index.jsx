@@ -1,25 +1,26 @@
-import React, { useCallback } from 'react';
-
+import { useNavigate } from "react-router-dom";
 import { URLS } from '../../../constants/constants';
+import './styles.css';
+import '../../Auth/styles.css';
 
-import styles from './index.module.css';
-
-export const NotFound = ({ navigate }) => {
-  const handleMainBtn = useCallback(() => navigate(URLS.HOME), [navigate]);
+const NotFound = ({ }) => {
+  const navigate = useNavigate();
+  const handleMainBtn = () => navigate(URLS.DASHBOARD);
 
   return (
-    <div className={styles.notFoundPage}>
-      <Logo lg />
-      <div className={styles.head}>
-        <h1 className={styles.pageHeader}>404</h1>
-        <h2 className={styles.pageHeader}>Page Not Found</h2>
+    <div className={"notFoundPage"}>
+      <div className={"head"}>
+        <h1 className={"pageHeader"}>404</h1>
+        <h2 className={"pageHeader"}>Page Not Found</h2>
       </div>
-      <p className={styles.pageDescription}>
+      <p className={"pageDescription"}>
         Requested page does not exist. Return to the home page by clicking the button below.
       </p>
       <div>
-        <button onClick={handleMainBtn}>Go to Dashboard</button>
+        <button className="form-button btnWidth" onClick={handleMainBtn}>Go to Dashboard</button>
       </div>
     </div>
   );
 };
+
+export default NotFound;
