@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { URLS, API_URL } from "../../../constants/constants";
+import { getEmptyHeadersForHttpReq } from "../../../constants/token";
 import '../styles.css'; // Import your CSS file
 
 const Register = () => {
     const navigate = useNavigate();
+    const [user_name, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -16,18 +18,18 @@ const Register = () => {
         const response = await axios.post(
             `${API_URL}user/register`,
             {
+            user_name,
             email,
             password,
             },
             {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "",
-            },
+            ...getEmptyHeadersForHttpReq(),
             }
         );
-        localStorage.setItem('token', response.data.token);
-        navigate(URLS.DASHBOARD);
+        console.log("response-->",response);
+        
+        // localStorage.setItem('token', response.data.token);
+        navigate(URLS.LOGIN);
 
         } catch (error) {
         console.error('Error in Registration:', error)
@@ -44,6 +46,17 @@ const Register = () => {
                <div className="form-card">
                    <h2 className="form-title">Register</h2>
                    <form onSubmit={handleSubmit}>
+                       <div className="form-group">
+                           <label htmlFor="user_name" className="form-label">User Name</label>
+                           <input
+                               type="user_name"
+                               id="user_name"
+                               value={user_name}
+                               onChange={(e) => setUserName(e.target.value)}
+                               required
+                               className="form-input"
+                           />
+                       </div>
                        <div className="form-group">
                            <label htmlFor="email" className="form-label">Email</label>
                            <input

@@ -1,41 +1,42 @@
-   import React, { useState } from 'react';
-   import { useNavigate } from "react-router-dom";
-    import { URLS } from "../../../constants/constants";
-    import '../styles.css'; // Import your CSS file
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { URLS, API_URL } from "../../../constants/constants";
+import { getEmptyHeadersForHttpReq } from "../../../constants/token";
+import '../styles.css'; // Import your CSS file
 
-   const Login = () => {
+const Login = () => {
     const navigate = useNavigate();
-       const [email, setEmail] = useState('');
-       const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-       const handleSubmit = async (e) => {
-         e.preventDefault();
+    const handleSubmit = async (e) => {
+      e.preventDefault();
 
-         try {
-           const response = await axios.post(
-             `${API_URL}user/login`,
-             {
-               email,
-               password,
-             },
-             {
-               headers: {
-                 "Content-Type": "application/json",
-                 Authorization: "",
-               },
-             }
-           );
-           localStorage.setItem("token", response.data.token);
-           navigate(URLS.DASHBOARD);
-         } catch (error) {
-           console.error("Error in Login:", error);
-           throw error;
-         }
-       };
+      try {
+        const response = await axios.post(
+          `${API_URL}user/login`,
+          {
+            email,
+            password,
+          },
+          {
+            ...getEmptyHeadersForHttpReq(),
+          }
+        );
+        localStorage.setItem("token", response?.data?.token);
+        localStorage.setItem("user_name", response?.data?.user?.user_name);
+        localStorage.setItem("email", response?.data?.user?.email);
+        navigate(URLS.DASHBOARD);
+      } catch (error) {
+        console.error("Error in Login:", error);
+        throw error;
+      }
+    };
 
-       const NavigateToRegister = () =>{
-        navigate(URLS.REGISTER);
-       }
+    const NavigateToRegister = () => {
+      navigate(URLS.REGISTER);
+    };
 
        return (
            <div className="form-container">
