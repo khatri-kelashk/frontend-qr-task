@@ -15,7 +15,7 @@ const Register = () => {
         e.preventDefault();
         
         try {
-        const response = await axios.post(
+        const _response = await axios.post(
             `${API_URL}user/register`,
             {
             user_name,
@@ -26,9 +26,7 @@ const Register = () => {
             ...getEmptyHeadersForHttpReq(),
             }
         );
-        console.log("response-->",response);
         
-        // localStorage.setItem('token', response.data.token);
         navigate(URLS.LOGIN);
 
         } catch (error) {
